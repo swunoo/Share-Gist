@@ -1,3 +1,118 @@
+:root {
+ --color1: #01226F;
+ --color2: #F3B33E;
+}
+
 .App {
+  display:grid;
+  grid-template-columns: 25vw auto;
+}
+
+/* NAVBAR SIDE */
+
+.Navbar {
+  position: relative;
+}
+
+.NavStick {
+  position: fixed;
+
+  display: flex;
+  flex-direction: column;
+  gap:5vh;
+  align-items: center;
+  height: 100vh;
+  width: 25vw;
+  background-color: var(--color1);
+  padding: 2vmin;
+  margin:0;
+
+}
+
+.NavStick > header {
+  font-size: 2rem;
+  color: #fff;
+  border-bottom: 1px solid var(--color2);
+}
+
+.Header {
+  background-color: #eee;
+  color:var(--color1)
+}
+
+.CurrentLesson {
   text-align: center;
+}
+
+.CurrentLesson > p {
+  font-weight: 500;
+  font-size: 1.2rem;
+  margin-bottom: 3vh;
+  color:#ffcc00;
+}
+
+.CurrentLesson > hr {
+  margin: 5vmin 0;
+  border-top: 1px solid #aaa;
+}
+
+.CurrentLesson > ol {
+  list-style: decimal;
+  text-align: left;
+  margin-left: 2vw;
+  
+}
+
+.CurrentLesson li {
+  margin: 2vmin 0;
+  color: #ccc;
+  padding:1vmin;
+}
+
+.selectedLesson {
+  font-weight: 500;
+  color:#fff !important;
+}
+
+.progress {
+  color:#fff;
+  width:10vw;
+}
+.progressWrapper {
+  display:flex;
+  justify-content: space-evenly;
+  align-items:center;
+  gap:3vw;
+}
+
+/* CONTENT SIDE */
+
+.Content {
+  padding: 3vmin;
+  color: #555;
+  max-width: 700px;
+  margin:0 auto;
+  font-size: 1.2rem;
+  font-weight: 350;
+}
+
+.Content header {
+  font-size: 3rem;
+  font-weight: 500;
+  margin-bottom: 3vmin;
+  text-align: center;
+}
+
+.Content .text {
+  text-align: justify;
+}
+
+.Content .text::first-letter {
+  font-size: 2rem;
+  color: var(--color1);
+  font-weight: 500;
+}
+
+.Content iframe {
+  margin: 3vmin auto;
 }
