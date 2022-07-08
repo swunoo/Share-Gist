@@ -119,6 +119,10 @@
 
 /* Content for Teacher */
 
+.TeacherDashboard {
+  padding:1vmin;
+}
+
 .TeacherDashboard h1 {
   font-size: 2rem;
   margin-bottom: 5vmin;

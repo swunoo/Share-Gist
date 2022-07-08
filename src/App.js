@@ -30,7 +30,7 @@ function App() {
   }
 
   const loadData = async () => {
-    fetch('http://localhost/sGist/MainController.php')
+    fetch('http://localhost/sGist/ReadController.php')
       .then(res=> res.json())
       .then(data => console.log(data));
   }
