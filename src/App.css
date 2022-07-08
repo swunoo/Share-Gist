@@ -6,6 +6,7 @@
 .App {
   display:grid;
   grid-template-columns: 25vw auto;
+  min-height: 100vh;
 }
 
 /* NAVBAR SIDE */
@@ -40,30 +41,30 @@
   color:var(--color1)
 }
 
-.CurrentLesson {
+.CurrentCourse {
   text-align: center;
 }
 
-.CurrentLesson > p {
+.CurrentCourse > p {
   font-weight: 500;
   font-size: 1.2rem;
   margin-bottom: 3vh;
   color:#ffcc00;
 }
 
-.CurrentLesson > hr {
+.CurrentCourse > hr {
   margin: 5vmin 0;
   border-top: 1px solid #aaa;
 }
 
-.CurrentLesson > ol {
+.CurrentCourse > ol {
   list-style: decimal;
   text-align: left;
   margin-left: 2vw;
   
 }
 
-.CurrentLesson li {
+.CurrentCourse li {
   margin: 2vmin 0;
   color: #ccc;
   padding:1vmin;
@@ -83,6 +84,143 @@
   justify-content: space-evenly;
   align-items:center;
   gap:3vw;
+}
+
+.toggleUser {
+  position: fixed;
+  bottom: 3vh;
+}
+
+.swap-on, .swap-off {
+  font-size: 3rem;
+}
+
+/* Nav for Teacher */
+
+#tDash, #tNLesson, #tNCourse {
+  display: none;
+}
+
+.tMode {
+  overflow: hidden;
+}
+
+.tMode label {
+  color:#eee;
+  padding:3vmin;
+  
+}
+
+.tMode input:checked + li > label{
+  background-color: #555;
+  color:#fff;
+  font-weight: 600;
+}
+
+/* Content for Teacher */
+
+.TeacherDashboard h1 {
+  font-size: 2rem;
+  margin-bottom: 5vmin;
+}
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  gap:3vmin;
+}
+
+.card {
+  max-width:300px;
+  font-size: 1rem;
+  background-color: #fff;
+}
+
+.card-actions img {
+  width: 39px;
+  margin: 1vmin;
+  padding:1vmin;
+  cursor: pointer;
+}
+
+.card-actions img:hover {
+  transform: scale(1.2);
+}
+
+.tNForm {
+  max-width: 700px;
+  display: flex;
+  flex-direction: column;
+  gap:1vmin;
+}
+
+.tNForm h1 {
+  font-size: 2rem;
+  margin-bottom: 5vmin;
+}
+
+.tNForm .grid {
+  display: grid;
+  grid-template-columns: 1fr 4fr;
+  gap:2vmin;
+  align-items: flex-start;
+}
+
+.tNForm label {
+  font-weight: 500;
+  color: var(--color1);
+}
+
+.tNForm select {
+  margin-bottom: 5vmin;
+  background-color: var(--color1);
+  color: #fff;
+  font-weight: 300;
+  font-size: 1.2rem;
+}
+
+.tNForm button {
+  width:30%;
+  margin-top: 5vmin;
+  margin-left: auto;
+  background-color: var(--color1);
+  color:#fff;
+}
+
+.tNForm input::placeholder, .tNForm textarea::placeholder {
+  color:#fff;
+  font-size: 1rem !important;
+
+}
+
+.tNForm input, .tNForm textarea {
+  color:var(--color1) !important;
+  font-size: 1.2rem;
+  background-color: #aaa;
+}
+
+.tNForm input[type='file'] {
+  display:none;
+}
+
+.tNForm .imgInputWrapper {
+  font-weight: 300;
+  margin: auto 0;
+  cursor:pointer;
+}
+
+.imgInputWrapper>span {
+  margin-left: 2vmin;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.TeacherContent {
+  color: #555;
+  width:100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* CONTENT SIDE */
