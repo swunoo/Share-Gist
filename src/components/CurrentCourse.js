@@ -28,11 +28,14 @@ export function CurrentCourse (props) {
     return (
         <div className="CurrentCourse">
             <p>{props.course.title}</p>
+            {!props.course.status 
+                && 
             <div className="progressWrapper">
                 <progress class="progress progress-warning" value={progress} max="100">
                 </progress>
                 <p>{progress}%</p>
             </div>
+            }
 
             <hr />
 

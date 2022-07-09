@@ -4,24 +4,30 @@ import { Content } from './components/Content';
 import { Navbar } from './components/Navbar.js';
 import { TeacherContent } from './components/TeacherContent';
 
-const lesson = {
-  id: 1,
-  course: 1,
-  title: 'Starting to Film',
-  text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum voluptatum explicabo, sed facere iure sit illum cumque? Quaerat aspernatur distinctio enim rerum eius vitae beatae eum alias quasi praesentium eveniet, nobis facilis minima perspiciatis laborum, corporis error voluptatum quas cum, recusandae quia ipsa culpa. Rem voluptatum recusandae doloribus asperiores incidunt?',
-  video_link: 'https://vimeo.com/659246198',
-  duration: 0.5
-}
+let lesson;
 
-const course = {
-  title: 'How to Film',
-  lessonList: ['Starting to Film', 'Getting Better', 'Being a Pro']
-}
+// let lesson = {
+//   id: 1,
+//   course: 1,
+//   title: 'Starting to Film',
+//   text: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Cum voluptatum explicabo, sed facere iure sit illum cumque? Quaerat aspernatur distinctio enim rerum eius vitae beatae eum alias quasi praesentium eveniet, nobis facilis minima perspiciatis laborum, corporis error voluptatum quas cum, recusandae quia ipsa culpa. Rem voluptatum recusandae doloribus asperiores incidunt?',
+//   video_link: 'https://www.youtube.com/watch?v=fNFzfwLM72c&list=RDGMEMQ1dJ7wXfLlqCjwV0xfSNbAVM4-43lLKaqBQ&index=28',
+//   duration: 0.5
+// }
+
+// const course = {
+//   title: 'How to Film',
+//   lessonList: ['Starting to Film', 'Getting Better', 'Being a Pro']
+// }
 
 function App() {
 
   const [user, setUser] = useState(false);
   const [tMode, setTMode] = useState('tDash');
+  const [lesson, setLesson] = useState();
+  const [course, setCourse] = useState({
+    title: '. . .', lessonList: [], status: true
+  })
 
   const toggleUser = () => setUser((state)=>!state);
 
@@ -30,12 +36,24 @@ function App() {
   }
 
   const loadData = async () => {
-    fetch('http://localhost/sGist/ReadController.php')
-      .then(res=> res.json())
-      .then(data => console.log(data));
+    fetch('http://localhost/sGist/ReadController.php', {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        course: 1,
+        lesson: 0
+      }) //Course 1, First Lesson.
+    }).then(res => res.json())
+      .then(data => {
+        console.log(data);
+        // setLesson(data.lesson);
+      })
   }
 
-  // loadData();
+  loadData();
 
   return (
     <div className='App'>

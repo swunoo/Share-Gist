@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 import { CurrentCourse } from "./CurrentCourse.js";
 import { Header } from "./Header";
-import { TeacherContent } from "./TeacherContent.js";
 
 export function Navbar(props) {
 
