@@ -46,7 +46,7 @@ export function TeacherDashboard(props) {
     });
 
     return (
-        <div className="TeacherDashboard">
+        <div className="Dashboard">
 
             <h1> Your Courses </h1>
 

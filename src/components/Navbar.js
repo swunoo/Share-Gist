@@ -35,7 +35,7 @@ export function Navbar(props) {
                     <CurrentCourse 
                         lessonList = {props.lessonList}
                         courseTitle = {props.courseTitle}
-                        loadingState = {props.loadingState} 
+                        updateLesson = {props.updateLesson}
                     />
                 }
 

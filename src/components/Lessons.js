@@ -4,7 +4,7 @@ import { LoadScreen } from "./LoadScreen.js";
 
 import { getIframeYoutube, getIframeVimeo } from './videoToIframe.js';
 
-export function Content (props) {
+export function Lessons (props) {
 
     const [iFrame, setIFrame] = useState('');
 
@@ -22,8 +22,6 @@ export function Content (props) {
 
         <div className="Content">
 
-            {
-            props.lesson && 
             <>
                 <header>{props.lesson.title}</header>
                 <div className="video">
@@ -33,9 +31,7 @@ export function Content (props) {
                     {props.text}
                 </div>
             </>
-            }
 
-            {!props.lesson && <LoadScreen />}
 
 
         </div>

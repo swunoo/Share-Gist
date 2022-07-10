@@ -17,6 +17,8 @@ export function NewLesson(props) {
 
         apiAdder('http://localhost/sGist/CreateController.php', obj).then(res => console.log(res));
 
+        // videoAdder('http://localhost/sGist/CreateController.php').then(res => console.log(res));
+
     }
 
     const apiAdder = async (url, obj) => {
@@ -32,6 +34,24 @@ export function NewLesson(props) {
         return await res.json();
     }
 
+    // const videoAdder = async (url) => {
+
+    //     let video = document.getElementById('videoInput');
+
+    //     let formData = new FormData();
+    //     formData.append('video', video.files[0]);
+
+    //     let res = await fetch(url, {
+    //         method: "POST",
+    //         headers: {
+    //             Accept: "application/json",
+    //         },
+    //         body: formData
+    //     });
+
+    //     return await res.json();
+    // }
+
     let courses = [];
 
     props.courseData.forEach(course => {
@@ -41,7 +61,7 @@ export function NewLesson(props) {
     })
 
     return (
-        <form className="tNForm" id="tNLessonForm" onSubmit={addLesson}>
+        <form className="tNForm" id="tNLessonForm" onSubmit={addLesson} encType='multipart/form-data'>
             <h1>Add New Lesson</h1>
 
             <label htmlFor="">Select Course</label>
@@ -64,6 +84,16 @@ export function NewLesson(props) {
                 <input type="text" placeholder="https://.........." class="input" name="lMedia" />
             </div>
 
+            {/* <div className="grid">
+                <label htmlFor="lVideo" className="label">Video</label>
+                <label for="videoInput" className="imgInputWrapper">
+                    <input
+                    type="file" 
+                    name="lVideo" id="videoInput" />
+                    Choose File
+                    <span></span>
+                </label>
+            </div> */}
 
             <div className="grid">
                 <label htmlFor="lDuration" className="label">Duration</label>

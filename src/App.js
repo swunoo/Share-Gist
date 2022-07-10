@@ -1,18 +1,17 @@
 import './App.css';
 import { useState } from 'react';
-import { Content } from './components/Content';
+import { StudentContent } from './components/StudentContent.js';
 import { Navbar } from './components/Navbar.js';
-import { TeacherContent } from './components/TeacherContent';
+import { TeacherContent } from './components/TeacherContent.js';
 
 function App() {
 
   const [user, setUser] = useState(false);
   const [tMode, setTMode] = useState('tDash');
-  const [lesson, setLesson] = useState();
-  const [text, setText] = useState('');
-  const [lessonList, setLessonList] = useState([]);
-  const [courseTitle, setCourseTitle] = useState('How to Film');
-  const [loadingState, setLoadingState] = useState(true);
+  const [lessonList, setLessonList] = useState(null);
+  const [courseTitle, setCourseTitle] = useState(null);
+  const [newLesson, setNewLesson] = useState(false);
+  const [lessonId, setLessonId] = useState(null);
 
   const toggleUser = () => setUser((state)=>!state);
 
@@ -20,43 +19,14 @@ function App() {
     setTMode(currentMode);
   }
 
-  const placeData = (data) => {
-        setLesson(data['details'][0]);
-        setText(data['details'][1]);
+  const updateLessonList = (arr) => setLessonList(arr);
 
-        let lessonArr = [];
-        data['lessons'].forEach(obj => {
-          lessonArr.push(obj.title);
-        });
-        setLessonList(lessonArr);
-
-        setCourseTitle('How to Film');
-
+  const updateLesson = (lessonId) => {
+    setNewLesson((state) => !state);
+    setLessonId(lessonId);
   }
 
-  // const loadData = async () => {
-  //   fetch('http://localhost/sGist/ReadController.php', {
-  //     method: "POST",
-  //     headers: {
-  //       Accept: "application/json",
-  //       "Content-Type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       course: 1,
-  //       lesson: 0
-  //     }) //Course 1, First Lesson.
-  //   }).then(res => res.json())
-  //     .then(data => {
-  //       setLoadingState(false);
-  //       console.log(data);
-  //       placeData(data);
-  //     })
-  // }
-
-  // if(loadingState) {
-  //   loadData();
-  // }
-
+  const updateCourseTitle = (title) => setCourseTitle(title);
 
   return (
     <div className='App'>
@@ -64,17 +34,19 @@ function App() {
       <Navbar 
         lessonList = {lessonList}
         courseTitle = {courseTitle}
-        loadingState = {loadingState} 
         user = {user} 
+        updateLesson = { updateLesson }
         toggleUser = {toggleUser}
         toggleMode = {toggleMode} 
       />
 
       {user
         && 
-      <Content 
-        lesson = {lesson}
-        text = {text}
+      <StudentContent 
+        lessonList = { updateLessonList }
+        courseTitle = { updateCourseTitle }
+        newLesson = {newLesson}
+        lessonId = {lessonId}
       />
       }
 

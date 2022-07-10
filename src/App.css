@@ -70,11 +70,6 @@
   padding:1vmin;
 }
 
-.selectedLesson {
-  font-weight: 500;
-  color:#fff !important;
-}
-
 .progress {
   color:#fff;
   width:10vw;
@@ -117,13 +112,23 @@
   font-weight: 600;
 }
 
+/* Nav for Student */
+.sCourse input {
+  display: none;
+}
+
+.sCourse input:checked + li > label {
+  color:var(--color2);
+  font-weight: 600;
+}
+
 /* Content for Teacher */
 
-.TeacherDashboard {
+.Dashboard {
   padding:1vmin;
 }
 
-.TeacherDashboard h1 {
+.Dashboard h1 {
   font-size: 2rem;
   margin-bottom: 5vmin;
 }
