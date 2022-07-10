@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-export function NewCourse() {
+export function NewCourse(props) {
 
     const showFileName = (e) => {
         let fileName = (e.target.value).replace('fakepath\\', '');
@@ -25,7 +25,9 @@ export function NewCourse() {
 
         let obj = {mode, title, category, text, media, duration};
 
-        await apiAdder(url, obj).then(res => console.log(res));
+        await apiAdder(url, obj).then(res => {
+            props.reload();
+            console.log(res)});
 
         console.log('files sent');
 

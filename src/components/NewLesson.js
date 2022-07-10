@@ -1,12 +1,12 @@
 import React from "react";
 
-export function NewLesson() {
+export function NewLesson(props) {
 
     const addLesson = (e) => {
 
         e.preventDefault();
 
-        let course = e.target ['lCourse'].value;
+        let course = e.target ['lCourse'].value;        
         let title = e.target ['lTitle'].value;
         let text = e.target ['lText'].value;
         let media = e.target ['lMedia'].value;
@@ -32,14 +32,21 @@ export function NewLesson() {
         return await res.json();
     }
 
+    let courses = [];
+
+    props.courseData.forEach(course => {
+        courses.push(
+            <option value={course.id}>{course.title}</option>
+        )
+    })
+
     return (
         <form className="tNForm" id="tNLessonForm" onSubmit={addLesson}>
             <h1>Add New Lesson</h1>
 
+            <label htmlFor="">Select Course</label>
             <select class="select" name="lCourse">
-                <option disabled selected>Please Select Course</option>
-                <option>Filmmaking</option>
-                <option>ReactJS</option>
+                {courses}
             </select>
 
             <div className="grid">
@@ -56,6 +63,7 @@ export function NewLesson() {
                 <label htmlFor="lMedia" className="label">Video Link</label>
                 <input type="text" placeholder="https://.........." class="input" name="lMedia" />
             </div>
+
 
             <div className="grid">
                 <label htmlFor="lDuration" className="label">Duration</label>

@@ -19,7 +19,7 @@ export function CurrentCourse (props) {
         formerlySelected = e.target;
     }
 
-    props.course.lessonList.forEach(lesson => {
+    props.lessonList.forEach(lesson => {
         lessonArr.push(
             <li onClick={selectLesson}>{lesson}</li>
         )
@@ -27,8 +27,8 @@ export function CurrentCourse (props) {
 
     return (
         <div className="CurrentCourse">
-            <p>{props.course.title}</p>
-            {!props.course.status 
+            <p>{props.courseTitle}</p>
+            {!props.loadingState
                 && 
             <div className="progressWrapper">
                 <progress class="progress progress-warning" value={progress} max="100">

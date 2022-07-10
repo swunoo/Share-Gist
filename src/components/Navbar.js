@@ -32,7 +32,11 @@ export function Navbar(props) {
 
                 {props.user
                     &&
-                    <CurrentCourse course={props.course} />
+                    <CurrentCourse 
+                        lessonList = {props.lessonList}
+                        courseTitle = {props.courseTitle}
+                        loadingState = {props.loadingState} 
+                    />
                 }
 
                 {!props.user

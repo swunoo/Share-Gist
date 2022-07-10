@@ -14,8 +14,8 @@ export function Content (props) {
             : getIframeYoutube (url, setIFrame));
     }
 
-    if(props.lesson && props.lesson.video_link) {
-        getVideo (props.lesson.video_link);
+    if(props.lesson && props.lesson['video_link']) {
+        getVideo (props.lesson['video_link']);
     }
 
     return (
@@ -30,7 +30,7 @@ export function Content (props) {
                     <div dangerouslySetInnerHTML={{ __html: iFrame }} />
                 </div>
                 <div className="text">
-                    {props.lesson.text}
+                    {props.text}
                 </div>
             </>
             }
