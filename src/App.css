@@ -126,6 +126,9 @@
 
 .Dashboard {
   padding:1vmin;
+  width: 100%;
+  height: 100%;
+  padding: 5vmin 10vmin;
 }
 
 .Dashboard h1 {
@@ -137,10 +140,11 @@
   display: flex;
   flex-wrap: wrap;
   gap:3vmin;
+
 }
 
 .card {
-  max-width:300px;
+  max-width:200px;
   font-size: 1rem;
   background-color: #fff;
 }
@@ -262,4 +266,33 @@
 
 .Content iframe {
   margin: 3vmin auto;
+}
+
+/* MODALS */
+
+.Modal .btn {
+  background-color: transparent;
+  border:none;
+  margin: 0;
+  padding: 0;
+  color: var(--color1);
+}
+
+.modal-toggle:checked ~{
+  opacity: 1 !important;
+  height: 100px;
+  width:100px;
+}
+
+.modal-toggle:checked {
+  background-color: cyan !important;
+}
+
+.modal-box {
+  background-color: var(--color2);
+  color:var(--color1);
+}
+
+.Header a {
+  padding: 1vmin 2.5vmin;
 }
