@@ -289,10 +289,24 @@
 }
 
 .modal-box {
-  background-color: var(--color2);
-  color:var(--color1);
+  background-color: var(--color1);
+  color:#eee;
+  font-size: 1.2rem;
+}
+
+.modal-box label {
+  color:#eee !important;
+  margin: auto !important;
 }
 
 .Header a {
   padding: 1vmin 2.5vmin;
+}
+
+.addBtn {
+  background-color: var(--color1) !important;
+  color:#eee !important;
+  padding: 1vmin 5vmin !important;
+  margin-left: 500px !important;
+  margin-top: 3.5vmin !important;
 }

@@ -1,25 +1,38 @@
-import React from "react";
+import React, { useState } from "react";
+import { Modal } from "./Modal";
 
 export function NewLesson(props) {
 
-    const addLesson = (e) => {
+    const [modalTitle, setModalTitle] = useState('Loading, Please Wait......');
 
+    const addLessonFromBtn = async () => {
+        let form = document.getElementById('tNLessonForm');
+        await addLessonMain(form);
+        form.reset();
+    }
+    const addLessonFromForm = (e) => {
         e.preventDefault();
+    }
 
-        let course = e.target ['lCourse'].value;        
-        let title = e.target ['lTitle'].value;
-        let text = e.target ['lText'].value;
-        let media = e.target ['lMedia'].value;
-        let duration = e.target ['lDuration'].value;
-        let mode = 0 //0 For lesson, 1 for course, 2 for owner.
+    const addLessonMain = async (form) => {
+        let course = form['lCourse'].value;
+        let title = form['lTitle'].value;
+        let text = form['lText'].value;
+        let media = form['lMedia'].value;
+        let duration = form['lDuration'].value;
+        let mode = 0 //0 For lesson, 1 for course, 2 for owner
 
-        let obj = {mode, course, title, text, media, duration};
+        let obj = { mode, course, title, text, media, duration };
 
-        apiAdder('http://localhost/sGist/CreateController.php', obj).then(res => console.log(res));
+        await apiAdder('http://localhost/sGist/CreateController.php', obj).then(res => console.log(res));
 
         // videoAdder('http://localhost/sGist/CreateController.php').then(res => console.log(res));
 
+        setModalTitle('Successfully Added');
+
     }
+
+ 
 
     const apiAdder = async (url, obj) => {
         let res = await fetch(url, {
@@ -61,30 +74,33 @@ export function NewLesson(props) {
     })
 
     return (
-        <form className="tNForm" id="tNLessonForm" onSubmit={addLesson} encType='multipart/form-data'>
-            <h1>Add New Lesson</h1>
+        <>
 
-            <label htmlFor="">Select Course</label>
-            <select class="select" name="lCourse">
-                {courses}
-            </select>
+            <form className="tNForm" id="tNLessonForm" onSubmit={addLessonFromForm} encType='multipart/form-data'>
 
-            <div className="grid">
-                <label htmlFor="lTitle" className="label">Title *</label>
-                <input type="text" placeholder="ReactJS Basics" class="input " name="lTitle" required />
-            </div>
+                <h1>Add New Lesson</h1>
 
-            <div className="grid">
-                <label htmlFor="lText" className="label">Text</label>
-                <textarea class="textarea" placeholder="..." name="lText"></textarea>
-            </div>
+                <label htmlFor="">Select Course</label>
+                <select class="select" name="lCourse">
+                    {courses}
+                </select>
 
-            <div className="grid">
-                <label htmlFor="lMedia" className="label">Video Link</label>
-                <input type="text" placeholder="https://.........." class="input" name="lMedia" />
-            </div>
+                <div className="grid">
+                    <label htmlFor="lTitle" className="label">Title *</label>
+                    <input type="text" placeholder="ReactJS Basics" class="input " name="lTitle" required />
+                </div>
 
-            {/* <div className="grid">
+                <div className="grid">
+                    <label htmlFor="lText" className="label">Text</label>
+                    <textarea class="textarea" placeholder="..." name="lText"></textarea>
+                </div>
+
+                <div className="grid">
+                    <label htmlFor="lMedia" className="label">Video Link</label>
+                    <input type="text" placeholder="https://.........." class="input" name="lMedia" />
+                </div>
+
+                {/* <div className="grid">
                 <label htmlFor="lVideo" className="label">Video</label>
                 <label for="videoInput" className="imgInputWrapper">
                     <input
@@ -93,15 +109,23 @@ export function NewLesson(props) {
                     Choose File
                     <span></span>
                 </label>
-            </div> */}
+                </div> */}
 
-            <div className="grid">
-                <label htmlFor="lDuration" className="label">Duration</label>
-                <input type="number" placeholder="(in minutes)" class="input" name="lDuration" />
-            </div>
+                <div className="grid">
+                    <label htmlFor="lDuration" className="label">Duration</label>
+                    <input type="number" placeholder="(in minutes)" class="input" name="lDuration" />
+                </div>
 
-            <button className="btn">Add</button>
+                <Modal
+                    modalId={'lessonModal'}
+                    promptBtn={<div onClick={addLessonFromBtn} className="btn addBtn"> Add </div>}
+                    title={modalTitle}
+                    des={""}
+                    btn={"OK"}
+                />
+                {/* <button className="btn">Add</button> */}
+            </form>
 
-        </form>
+        </>
     )
 }

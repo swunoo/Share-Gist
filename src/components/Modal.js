@@ -7,6 +7,8 @@ export function Modal(props) {
      * props.promptBtn is optional.
      */
 
+    console.log('modal added as ', props.modalId);
+
     let effectUsed = false;
 
     useEffect(() => {
@@ -17,41 +19,41 @@ export function Modal(props) {
             effectUsed = true;
             console.log('usingEffect');
     
-            let modals = document.querySelector('.modal-toggle');
+            let modals = document.querySelector(`#${props.modalId}`);
 
             //Probably remove event listener when a new Component is mounted.
     
-            modals.addEventListener('focus', () => {
+            modals.addEventListener('change', () => {
                 
-                // console.log('clicked');
+                console.log('clicked');
     
                 let cards =  document.querySelector('.cards');
-                // console.log(cards.style.display);
-    
-                if (cards.style.display === 'none'){
-                    // console.log('it is now none');
-                    cards.style.display = 'flex';
-                } else {
-                    // console.log('it is now: ', cards.style.display);
-                    cards.style.display = 'none';
+
+                if(cards){
+                    if (cards.style.display === 'none'){
+                        cards.style.display = 'flex';
+                    } else {
+                        cards.style.display = 'none';
+                    }
                 }
+    
 
         })}
 
     }, [])
 
-    let promptBtn = props.promptBtn ? props.promptBtn : (<label for="my-modal-6" class="btn modal-button">{props.prompt}</label>);
-
     return (
         <div className="Modal">
-            { promptBtn }
-            <input type="checkbox" id="my-modal-6" class="modal-toggle " />
+            <label for={props.modalId} class="btn modal-button">
+                {props.promptBtn}
+            </label>
+            <input type="checkbox" id={props.modalId} class="modal-toggle " />
             <div class="modal modal-bottom sm:modal-middle">
                 <div class="modal-box">
                     <h3 class="font-bold text-lg">{props.title}</h3>
                     <p class="py-4">{props.des}</p>
                     <div class="modal-action">
-                        <label for="my-modal-6" class="btn">{props.btn}</label>
+                        <label for={props.modalId} class="btn">{props.btn}</label>
                     </div>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import { LoadScreen } from "./LoadScreen.js";
 
 export function CurrentCourse (props) {
 
-    const [progress, setProgress] = useState(50);
+    const [progress, setProgress] = useState(0);
 
     const [lessonListReady, setLessonListReady] = useState(false);
     const [lessonList, setLessonList] = useState([]);

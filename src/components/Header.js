@@ -6,7 +6,7 @@ export function Header(props) {
     const reloader = () => window.location.reload(false);
 
 
-    let promptBtn = <label for='my-modal-6' class="btn"><svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg></label>
+    let promptBtn = <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
 
     return (
         <ul class="Header menu menu-horizontal bg-base-100 rounded-box">
@@ -18,11 +18,12 @@ export function Header(props) {
             <li>
                 <a>
                   <Modal 
+                    modalId = {'infoModal'}
                     promptBtn = {promptBtn}
-                    title = {"Hello"}
-                    des = {"description"}
+                    title = {"Information"}
+                    des = {"This a simple eduBlog/LMS is written as a prototype for Level-up LMS."}
                     btn = {"close"}
-
+                    
                     />
                     
                 </a>
@@ -35,6 +36,18 @@ export function Header(props) {
 
                 </a>
             </li>
+            {/* <li>
+                <a>
+                <Modal 
+                    modalId = {'sandboxModal'}
+                    promptBtn = {'Sandbox'}
+                    title = {"Another Modal"}
+                    des = {"description"}
+                    btn = {"close"}
+                    
+                    />
+                </a>
+            </li> */}
         </ul>
     )
 }

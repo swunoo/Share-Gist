@@ -1,26 +1,31 @@
 import React from "react";
 import { useState } from "react";
+import { Modal } from "./Modal";
 
 export function NewCourse(props) {
 
-    const showFileName = (e) => {
-        let fileName = (e.target.value).replace('fakepath\\', '');
-        document.querySelector('.imgInputWrapper > span').textContent = fileName;
+    const [modalTitle, setModalTitle] = useState('Loading, Please Wait......');
+
+    const addCourseFromBtn = async () => {
+        let form = document.getElementById('tNCourseForm');
+        await addCourseMain(form);
+        form.reset();
+    }
+    const addCourseFromForm = (e) => {
+        e.preventDefault();
     }
 
-    const addCourse = async (e) => {
-
-        e.preventDefault();
+    const addCourseMain = async (form) => {
 
         let url = 'http://localhost/sGist/CreateController.php';
         let media;
 
         await imgAdder(url).then(res => media = res);
 
-        let title = e.target ['lTitle'].value;
-        let category = e.target ['lCategory'].value;
-        let text = e.target ['lText'].value;
-        let duration = e.target ['lDuration'].value;
+        let title = form['lTitle'].value;
+        let category = form['lCategory'].value;
+        let text = form['lText'].value;
+        let duration = form['lDuration'].value;
         let mode = 1 //0 For lesson, 1 for course, 2 for owner.
 
         let obj = {mode, title, category, text, media, duration};
@@ -30,6 +35,9 @@ export function NewCourse(props) {
             console.log(res)});
 
         console.log('files sent');
+
+        setModalTitle('Successfully Added');
+
 
     }
 
@@ -64,8 +72,13 @@ export function NewCourse(props) {
         return await res.json();
     }
 
+    const showFileName = (e) => {
+        let fileName = (e.target.value).replace('fakepath\\', '');
+        document.querySelector('.imgInputWrapper > span').textContent = fileName;
+    }
+
     return (
-        <form className="tNForm" id="tNCourseForm" onSubmit={addCourse}encType="multipart/form-data" method="POST">
+        <form className="tNForm" id="tNCourseForm" onSubmit={addCourseFromForm}encType="multipart/form-data" method="POST">
             <h1>Add New Course</h1>
 
             <div className="grid">
@@ -100,7 +113,13 @@ export function NewCourse(props) {
                 <input type="number" placeholder="(in minutes)" class="input" name="lDuration" />
             </div>
 
-            <button className="btn">Add</button>
+            <Modal
+                    modalId={'courseModal'}
+                    promptBtn={<div onClick={addCourseFromBtn} className="btn addBtn"> Add </div>}
+                    title={modalTitle}
+                    des={""}
+                    btn={"OK"}
+            />
 
         </form>
     )
