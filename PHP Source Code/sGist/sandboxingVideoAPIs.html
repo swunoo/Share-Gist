@@ -1,0 +1,260 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vimeo Upload API</title>
+  </head>
+  <body>
+    <h1>Upload Video</h1>
+
+    <form id="videoFormVimeo">
+      <label for="videoFile">Upload To Vimeo</label>
+      <input type="file" enctype="multipart/form-data" name="videoFile" id="videoFile"/>
+      <button>submit video</button>
+    </form>
+
+    <hr>
+
+    <form id="videoFormYoutube">
+      <label for="videoFileYT">Upload To Youtube</label>
+      <input type="file" enctype="multipart/form-data" name="videoFileYT" id="videoFileYT"/>
+      <button>submit video</button>
+    </form>
+
+    <hr>
+
+    <form id="editVideoVimeo">
+      <label for="">Video to edit</label>
+      
+      <br>
+      Video Code
+      <input type="text" name="videoCode"/>
+      
+      <br>
+      Video File
+      <input type="file" name="videoFile"/>
+
+      <br>
+      New Name
+      <input type="text" name="newName">
+      <button>submit</button>
+    </form>
+
+    <!-- YOUTUBE -->
+    <script>
+
+
+
+
+      //TODO: FIND THE ACCESS TOKEN FOR YOUTUBE.
+      
+      function yt01 () {
+        
+        let apiKey = 'AIzaSyCgwI01vgfvy3QzS8F6RSR56GGPeYwEU40';
+        let accessToken = '';
+
+        fetch(`https://youtube.googleapis.com/youtube/v3/videos?part=snippet%2Cstatus&autoLevels=true&onBehalfOfContentOwner=Sandbox&onBehalfOfContentOwnerChannel=Sandbox&stabilize=true&key=${apiKey} HTTP/1.1`,{
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${accessToken}`,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            "snippet": {
+              "categoryId": "22",
+              "description": "Description of uploaded video.",
+              "title": "Test video upload."
+            },
+            "status": {
+              "privacyStatus": "private"
+            }
+          })
+        }).then(res => res.json()).then(data => console.log(data));
+      }
+
+    </script>
+
+    <!-- VIMEO -->
+    <script>
+
+        let videoForm = document.getElementById('videoFormVimeo');
+        let videoEditForm = document.getElementById('editVideoVimeo');
+
+        videoForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            let videoFile = videoForm['videoFile'].files[0];
+            uploadVideo(videoFile);
+        })
+
+        videoEditForm.addEventListener('submit', async (e) => {
+          e.preventDefault();
+          let videoFile = videoEditForm['videoFile'].files[0];
+          editVideo(e.target['videoCode'], e.target['newName'], videoFile);
+        })
+
+        async function editVideo(videoCode,videoName, newVideoFile){
+          let res = await fetch(`https://api.vimeo.com/videos/729066439/versions`, {
+          method: "POST",
+          headers: {
+            Authorization: "bearer 78cd4b0d6b6674af07698460fdd014eb",
+            "Content-Type": "application/json",
+            Accept: "application/vnd.vimeo.*+json;version=3.4",
+          },
+          body: JSON.stringify({
+            "file_name": videoName,
+            "upload": {
+              "status": "in_progress",
+              "size": newVideoFile.size,
+              "approach": "post"
+            }
+          }),
+        }).then(res => res.json())
+          .then(data => {
+            console.log(data);
+
+          // let formURL = (data.upload.form.split('"'))[3];
+          // console.log(formURL);
+          // uploadToVimeo(formURL, videoFile, res.link);
+        })
+        }
+
+      const uploadVideo = async (videoFile) => {
+        useVimeoApi(videoFile.size)
+          .then((res) => {
+              let formURL = (res.upload.form.split('"'))[3];
+              uploadToVimeo(formURL, videoFile, res.link);
+        });
+      };
+
+      const useVimeoApi = async (videoSize) => {
+        let res = await fetch("https://api.vimeo.com/me/videos", {
+          method: "POST",
+          headers: {
+            Authorization: "bearer 78cd4b0d6b6674af07698460fdd014eb",
+            "Content-Type": "application/json",
+            Accept: "application/vnd.vimeo.*+json;version=3.4",
+          },
+          body: JSON.stringify({
+            "upload": {
+              "approach": "post",
+              "size": videoSize,
+            },
+            "name": "Sandboxing for Project",
+            "privacy": {"view": "unlisted", "embed": "public"}
+          }),
+        });
+
+        return await res.json();
+      };
+
+      
+
+      const uploadToVimeo = async (url, videoFile, videoURL) => {
+        let formData = new FormData ();
+        formData.append('file_data', videoFile);
+
+        fetch(url,{
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+            },
+            body: formData
+        }).then(res => console.log(videoURL))
+        .catch(err => console.log(err))
+      }
+
+    </script>
+
+    <script>
+      // The Resumable
+      // const step10 = () => {
+      //     let clientIdentifier = "3374d2670c75ea84f0a8d4d17bde81407cab63bb";
+      //     let clientSecret = "OTaeyfQi/1DfLKFQJBqeZFTgQJDp//Bojyiwp7M+ZAG3U8UW8o2QVQDd63YzSu+BMseZZ2nVJTq9OvoXww/auUkDIMhrQ2U3Ol2/THNnrEI1NwsSbd2TdAFszfov/ilZ";
+
+      //     fetch('https://api.vimeo.com/oauth/authorize/client', {
+      //         method: "POST",
+      //         headers: {
+      //             'Authorization': `basic base64_encode(${clientIdentifier}:${clientSecret})`,
+      //             'Content-Type': 'application/json',
+      //             'Accept': 'application/vnd.vimeo.*+json;version=3.4'
+      //         },
+      //         body: {
+      //             "grant_type": "client_credentials",
+      //             "scope": "public"
+      //             }
+      //     })
+      // }
+
+      // const step19 = () => {
+      //     let clientIdentifier = "3374d2670c75ea84f0a8d4d17bde81407cab63bb";
+      //     let clientSecret = "OTaeyfQi/1DfLKFQJBqeZFTgQJDp//Bojyiwp7M+ZAG3U8UW8o2QVQDd63YzSu+BMseZZ2nVJTq9OvoXww/auUkDIMhrQ2U3Ol2/THNnrEI1NwsSbd2TdAFszfov/ilZ";
+      //     let redirectUri = "https://api.vimeo.com/oauth/access_token";
+
+      //     fetch(`https://api.vimeo.com/oauth/authorize?response_type=code&client_id=${clientIdentifier}&redirect_uri=${redirectUri}&state=1`, {
+      //         method: "POST",
+      //         headers: {
+      //             'Authorization': `basic base64_encode(${clientIdentifier}:${clientSecret})`,
+      //             'Content-Type': 'application/json',
+      //             'Accept': 'application/vnd.vimeo.*+json;version=3.4'
+      //         },
+      //         body: {
+      //             "grant_type": "client_credentials",
+      //             "scope": "public"
+      //             }
+      //     })
+      // }
+
+      // const step11 = async () => {
+      //     let res = await fetch('https://api.vimeo.com/me/videos', {
+      //         method: "POST",
+      //         headers: {
+      //             Authorization: "bearer 78cd4b0d6b6674af07698460fdd014eb",
+      //             "Content-Type": "application/json",
+      //             Accept: "application/vnd.vimeo.*+json;version=3.4"
+      //         },
+      //         body: JSON.stringify ({
+      //             "upload": {
+      //                 "approach": "tus",
+      //                 "size": "4783789"
+      //             }})
+
+      //     })
+
+      //     return await res.json();
+      // }
+
+      // const step12 = async (uploadURL) => {
+      //     let res = await fetch(uploadURL, {
+      //         method: "PATCH",
+      //         headers: {
+      //             "Tus-Resumable": "1.0.0",
+      //             "Upload-Offset": 0,
+      //             "Content-Type": "application/offset+octet-stream",
+      //             "Accept": "application/vnd.vimeo.*+json;version=3.4"
+      //         }
+      //     });
+      //     console.log(res);
+      //     return await res.headers;
+      // }
+
+      // The Form Approach
+
+      // const uploadVideoRes = async () => {
+      //     step11().then(res => {
+      //         console.log('first results');
+      //         console.log(res);
+
+      //         step12(res.upload['upload_link']).then(res =>{
+      //             console.log('second results');
+      //             console.log(res);
+      //         })
+      //     });
+
+      // }
+
+      // THIS WORKS NICELY.
+    </script>
+  </body>
+</html>
