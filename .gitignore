@@ -21,3 +21,12 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# ACCESS TOKENS
+
+# vimeo video upload
+bearer 78cd4b0d6b6674af07698460fdd014eb
+
+# youtube video embedding
+apiKey AIzaSyAtX69N53ZdeTuJ5A7wqaOKdBSDNFjq0EI
+

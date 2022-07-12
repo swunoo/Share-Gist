@@ -9,8 +9,7 @@ export class VideoUpload {
     constructor(videoFile, videoName){
         this.videoFile = videoFile;  
         this.videoName = videoName;
-
-        this.accessToken = "bearer 78cd4b0d6b6674af07698460fdd014eb";
+        this.accessToken = '' //ADD YOUR ACCESS TOKEN HERE;
         
         // Privacy settings:
         this.view = "unlisted";
@@ -68,46 +67,3 @@ export class VideoUpload {
     }
 
 }
-
-// export const uploadVideo = async (videoFile) => {
-//     useVimeoApi(videoFile.size)
-//         .then((res) => {
-//             let formURL = (res.upload.form.split('"'))[3];
-//             uploadToVimeo(formURL, videoFile, res.link);
-//         });
-// };
-
-// export const useVimeoApi = async (videoSize) => {
-//     let res = await fetch("https://api.vimeo.com/me/videos", {
-//         method: "POST",
-//         headers: {
-//             Authorization: "bearer 78cd4b0d6b6674af07698460fdd014eb",
-//             "Content-Type": "application/json",
-//             Accept: "application/vnd.vimeo.*+json;version=3.4",
-//         },
-//         body: JSON.stringify({
-//             "upload": {
-//                 "approach": "post",
-//                 "size": videoSize,
-//             },
-//             "name": "Sandboxing for Project",
-//             "privacy": { "view": "unlisted", "embed": "public" }
-//         }),
-//     });
-
-//     return await res.json();
-// };
-
-// export const uploadToVimeo = async (url, videoFile, videoURL) => {
-//     let formData = new FormData();
-//     formData.append('file_data', videoFile);
-
-//     fetch(url, {
-//         method: "POST",
-//         headers: {
-//             Accept: "application/json",
-//         },
-//         body: formData
-//     }).then(res => console.log(videoURL))
-//         .catch(err => console.log(err))
-// }
