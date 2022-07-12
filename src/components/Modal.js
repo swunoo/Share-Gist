@@ -2,6 +2,11 @@ import React, { useEffect } from "react";
 
 export function Modal(props) {
 
+    const submitVideoForm = (e) => {
+        e.stopPropagation();
+        e.preventDefault();
+    }
+
     /**
      * props.prompt, props.title, props.des and props.btn must be provided.
      * props.promptBtn is optional.

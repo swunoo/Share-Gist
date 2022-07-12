@@ -236,6 +236,25 @@
   justify-content: center;
 }
 
+#videoUploadForm {
+  display: flex;
+  /* flex-direction: column; */
+  gap: 10px;
+  margin: 5vmin 0;
+  align-items: center;
+}
+
+#videoUploadForm .addBtn {
+ padding: 0 1vmin !important;
+ border-radius: none !important;
+ background-color: transparent !important;
+ color:var(--color1) !important;
+ margin: 0 !important;
+ border: 1px solid #333;
+}
+
+
+
 /* CONTENT SIDE */
 
 .Content {

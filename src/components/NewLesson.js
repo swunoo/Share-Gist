@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import { Modal } from "./Modal";
+import { VideoUpload } from "./videoUploader";
 
 export function NewLesson(props) {
 
     const [modalTitle, setModalTitle] = useState('Loading, Please Wait......');
+    const [videoFormTitle, setVideoFormTitle] = useState('Loading');
+    const [showVideoForm, setShowVideoForm] = useState(false);
 
     const addLessonFromBtn = async () => {
         let form = document.getElementById('tNLessonForm');
@@ -15,10 +18,13 @@ export function NewLesson(props) {
     }
 
     const addLessonMain = async (form) => {
+
         let course = form['lCourse'].value;
         let title = form['lTitle'].value;
         let text = form['lText'].value;
+
         let media = form['lMedia'].value;
+        
         let duration = form['lDuration'].value;
         let mode = 0 //0 For lesson, 1 for course, 2 for owner
 
@@ -32,7 +38,7 @@ export function NewLesson(props) {
 
     }
 
- 
+
 
     const apiAdder = async (url, obj) => {
         let res = await fetch(url, {
@@ -47,23 +53,33 @@ export function NewLesson(props) {
         return await res.json();
     }
 
-    // const videoAdder = async (url) => {
 
-    //     let video = document.getElementById('videoInput');
+    const updateCustomUpload = (link) => {
+        document.getElementById('tNLessonForm')['lMedia'].value = link;
+        setVideoFormTitle('Successfully Added');
+    };
+    
 
-    //     let formData = new FormData();
-    //     formData.append('video', video.files[0]);
+    const addVideoFromForm = (e) => {
+        e.preventDefault();
+    }
+    
+    const addVideoFromBtn = async () => {
 
-    //     let res = await fetch(url, {
-    //         method: "POST",
-    //         headers: {
-    //             Accept: "application/json",
-    //         },
-    //         body: formData
-    //     });
+        let form = document.getElementById('videoUploadForm');
+        let videoFile = form['videoUpload'].files[0];
+        let videoName = form['videoName'].value;
 
-    //     return await res.json();
-    // }
+        console.log(videoFile, videoName);
+
+        let videoUploader = new VideoUpload (videoFile, videoName);
+        
+        videoUploader.uploadVideo(updateCustomUpload);
+    }
+
+    const displayVideoForm = (e) => {
+        setShowVideoForm(true);
+    }
 
     let courses = [];
 
@@ -74,7 +90,7 @@ export function NewLesson(props) {
     })
 
     return (
-        <>
+        <div className="NewLesson">
 
             <form className="tNForm" id="tNLessonForm" onSubmit={addLessonFromForm} encType='multipart/form-data'>
 
@@ -100,16 +116,19 @@ export function NewLesson(props) {
                     <input type="text" placeholder="https://.........." class="input" name="lMedia" />
                 </div>
 
-                {/* <div className="grid">
-                <label htmlFor="lVideo" className="label">Video</label>
+                <div className="grid">
+
+                    <label onClick={displayVideoForm}>Upload Video</label>
+
+                    {/* <label htmlFor="lVideo" className="label">Upload Video?</label>
                 <label for="videoInput" className="imgInputWrapper">
                     <input
                     type="file" 
                     name="lVideo" id="videoInput" />
                     Choose File
                     <span></span>
-                </label>
-                </div> */}
+                </label> */}
+                </div>
 
                 <div className="grid">
                     <label htmlFor="lDuration" className="label">Duration</label>
@@ -123,9 +142,29 @@ export function NewLesson(props) {
                     des={""}
                     btn={"OK"}
                 />
-                {/* <button className="btn">Add</button> */}
             </form>
 
-        </>
+            {showVideoForm &&
+                <form id="videoUploadForm" encType="multipart/form-data" onSubmit={addVideoFromForm}>
+                    
+                    <input type="text" name="videoName" placeholder="Video Name"/>
+                    {/* <label for="videoUpload">
+                        Choose File
+                    </label> */}
+                    <input
+                            type="file"
+                            name="videoUpload" id="videoUpload" />
+                    
+                    <Modal
+                    modalId={'videomodal'}
+                    promptBtn={<div onClick={addVideoFromBtn} className="btn addBtn"> Upload </div>}
+                    title={videoFormTitle}
+                    des={""}
+                    btn={"OK"}
+                />
+                </form>
+            }
+
+        </div>
     )
 }
