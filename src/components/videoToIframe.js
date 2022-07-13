@@ -22,6 +22,6 @@ export async function getIframeVimeo (url, setState) {
     fetch (`https://vimeo.com/api/oembed.json?url=${url}&byline=0&portrait=0&title=0&width=360&height=240`)
         .then(res => res.json())
         .then(data => {
-            setState(data.html)
+            setState(data.html);
         });
 }
