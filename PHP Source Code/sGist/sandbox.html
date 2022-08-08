@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+</head>
+<body>
+    
+    <script>
+        fetch("https://api.vimeo.com/me/videos", {
+            method: "POST",
+            headers: {
+                Authorization: 'bearer 82e885e8f1ae98fbb364605f2ce06526',
+                "Content-Type": "application/json",
+                Accept: "application/vnd.vimeo.*+json;version=3.4",
+            },
+            body: JSON.stringify({
+                "upload": {
+                    "approach": "post",
+                    "size": 100,
+                },
+                "name": 'Sandbox',
+            }),
+        }).then(res => res.json()).then(data => console.log(data));
+
+    </script>
+</body>
+</html>

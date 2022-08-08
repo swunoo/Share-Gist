@@ -6,7 +6,7 @@ export async function getIframeYoutube (url, setState) {
 
     let videoId = match && match[7].length == 11 ? match[7] : false;
 
-    let apiKey = '' //ADD YOUR API KEY HERE;
+    let apiKey = 'AIzaSyAtX69N53ZdeTuJ5A7wqaOKdBSDNFjq0EI' //ADD YOUR API KEY HERE;
     let apiURL = 'https://www.googleapis.com/youtube/v3/videos?part=player&id='+ videoId +'&key=' + apiKey;
 
     await fetch(apiURL)

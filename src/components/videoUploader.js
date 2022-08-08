@@ -1,7 +1,7 @@
 /**
  * To Upload a Video to Vimeo:
- * 1. Create an instance with two arguments.
- * 2. Call the uploadVideo method and pass in a callback function as argument.
+ * 1. Create an instance with two arguments (1. File data from the form. 2. Name of the Video).
+ * 2. Call the "uploadVideo" method and pass in a callback function as argument.
  */
 
 export class VideoUpload {
@@ -20,7 +20,9 @@ export class VideoUpload {
         this.useVimeoApi(this.videoFile.size)
         .then((res) => {
             let formURL = (res.upload.form.split('"'))[3];
+            console.log("formURL here: ", formURL);
             let videoURL = res.link;
+            console.log("Video URL Here: ", videoURL);
             this.uploadToVimeo(formURL, this.videoFile)
                 .then(result => {
                     console.log('added');

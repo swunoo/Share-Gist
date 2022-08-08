@@ -1,0 +1,18 @@
+Uploading Videos:
+
+1. Single file upload -
+
+.mp4, 16 mins (56 MB) : 5 mins
+
+August 7
+type, duration, size, time_to_upload
+.mp4, 20 mins, 166 MB, 8 mins (via api)
+.mp4, 20 mins, 166 MB, 7 mins (via api)
+.mov, 20 mins, 40 MB, 5 mins (direct)
+.mov, 20 mins, 40 MB, 5 mins (direct)
+.mp4, 20 mins, 166 MB, 7 mins (via api)
+
+August 8
+.mov, 20 mins, 41 MB, 6 mins (via api)
+.mov, 17 mins, 30 MB, 4 mins (via api)
+.mp4 (encoding changed), 17 mins, 33 MB, 3 mins (via api)
